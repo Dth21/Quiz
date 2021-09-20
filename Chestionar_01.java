@@ -62,9 +62,28 @@ public class Chestionar_01{
         while(points<=rows){
             int random_question = (int)Math.floor(Math.random()*(max-min+1)+min); //select random question
             System.out.println("\nRandom is " + random_question + ".\n");
-    
-            int random_number = random_question;
-              
+            int search = random_question;
+        
+            for(int a = 0; a<dubluri.length;a++){
+                if(dubluri[a] == search){
+                    count ++;
+                    break;
+                }
+                else{
+                    count = 0;
+                }
+            }
+
+            if(count<2){
+                System.out.println("Count is " + count);
+                int random_number = random_question;
+                break;
+            }
+            else{
+                break;
+            }
+            
+            
             System.out.println(ANSI_YELLOW + qnmr + ". " + questions[random_number][0] + ANSI_RESET); // output question and possible answers
             for(int i=1;i<columns-1;i++){
                 System.out.println(questions[random_number][i]);
