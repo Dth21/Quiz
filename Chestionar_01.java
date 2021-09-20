@@ -18,7 +18,6 @@ public class Chestionar_01{
         int min = 0;
         int max = rows - 1;
         int points = 0;
-        int index = 0;
         int qnmr = 1;
  
         questions[0][0] = "Who is the oldest person in Bible?"; // first question
