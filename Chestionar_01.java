@@ -19,6 +19,15 @@ public class Chestionar_01{
         int max = rows - 1;
         int points = 0;
         int qnmr = 1;
+        int indexdubluri = 0;
+        int count = 0;
+        int random_number=0;
+
+        int[] dubluri = new int[rows]; //creating array for search
+        for(int l = 0;l<dubluri.length;l++){
+            dubluri[l] = indexdubluri;
+            indexdubluri ++;
+        }
  
         questions[0][0] = "Who is the oldest person in Bible?"; // first question
         questions[0][1] =  "a. Moises";
