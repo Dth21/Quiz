@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Coleections;
 import java.util.Collections;
 
 public class Chestionar_01{
