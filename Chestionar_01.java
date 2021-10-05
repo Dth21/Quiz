@@ -125,64 +125,55 @@ public class chestionar_01{
     }
 
     static void user(int correct){
+
+        final String ANSI_RESET = "\u001B[0m";
+        final String ANSI_YELLOW = "\u001B[33m";
+        final String ANSI_CYAN = "\u001B[36m";
+
         String userName = null;
-        int userChoice = 0;
 
-        Scanner userchoiceObj = new Scanner(System.in);
-        System.out.println("1. Register new username.\n2. Show users and scores.");
-        userChoice = userchoiceObj.nextInt();
+        Scanner usernameObj = new Scanner(System.in);
+        System.out.println(ANSI_YELLOW + "\nInsert username:" + ANSI_RESET);
+        userName = usernameObj.nextLine();
 
-        switch(userChoice){
-            case 1:
-            Scanner usernameObj = new Scanner(System.in);
-            System.out.println("Insert username:");
-            userName = usernameObj.nextLine();
-
-            try{ // check if file exists
-                File fileObj = new File ("Users.txt");
-                if(fileObj.createNewFile()){
-                    System.out.println("File created.");
-                }
-                else{
-                    System.out.println("File existent.");
-                }
+        try{ // check if file exists
+            File fileObj = new File ("Users.txt");
+            if(fileObj.createNewFile()){
+                System.out.println("File created.\n");
             }
-            catch(IOException e){
-                System.out.println("An error occurred.");
-                e.printStackTrace();
+            else{
+                System.out.println("File existent.\n");
             }
-
-            try{ // write next line
-                FileWriter writer = new FileWriter("D:\\GitHub\\Quiz\\Users.txt", true);
-                writer.append(userName + " :: " + new java.util.Date() + " : " + correct + " points\n");
-                writer.close();
-            } 
-            catch (IOException e){
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
-            break;
-
-            case 2:
-            try{
-                FileReader reader = new FileReader("D:\\GitHub\\Quiz\\Users.txt");
-                int data = reader.read();
-                while(data != -1){
-                    System.out.print((char)data);
-                    data = reader.read();
-                }
-                reader.close();
-            }
-            catch(FileNotFoundException e){
-                e.printStackTrace();
-            }
-            catch(IOException e){
-                e.printStackTrace();
-            }
-            break;
+        }
+        catch(IOException e){
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
 
+        try{ // write next line
+            FileWriter writer = new FileWriter("D:\\GitHub\\Quiz\\Users.txt", true);
+            writer.append(userName + " :: " + new java.util.Date() + " : " + correct + " points\n");
+            writer.close();
+        } 
+        catch (IOException e){
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
 
-        
+        try{
+            FileReader reader = new FileReader("D:\\GitHub\\Quiz\\Users.txt");
+            int data = reader.read();
+            while(data != -1){
+                System.out.print(ANSI_CYAN + (char)data + ANSI_RESET);
+                data = reader.read();
+            }
+            reader.close();
+        }
+        catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }
