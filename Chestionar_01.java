@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Chestionar_01{
+public class chestionar_01{
     public static void main(String[] dth21){
         final String ANSI_RESET = "\u001B[0m";
         final String ANSI_YELLOW = "\u001B[33m";
@@ -9,7 +9,6 @@ public class Chestionar_01{
         final String ANSI_CYAN = "\u001B[36m";
 
         int isReady = 1; //used for restarting the program
-        String userName = null;
     
         while(isReady>0){
             String[][] questions = new String[5][6];
@@ -108,34 +107,10 @@ public class Chestionar_01{
                 System.out.println(ANSI_YELLOW + "\nYou won! congratulations!" + ANSI_RESET);                
             }
 
-            Scanner usernameObj = new Scanner(System.in);
-            System.out.println("Insert username:");
-            userName = usernameObj.nextLine();
-
-            try{ // check if file exists
-                File fileObj = new File ("Users.txt");
-                if(fileObj.createNewFile()){
-                    System.out.println("File created.");
-                } else{
-                    System.out.println("File existent.");
-                }
-            } catch(IOException e){
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
-
-            try{ // write next line
-                FileWriter myWriter = new FileWriter("D:\\GitHub\\Quiz\\Users.txt", true);
-                BufferedWriter out = new BufferedWriter(myWriter);
-                out.write(userName + " :: " + new java.util.Date() + " : " + correct + " points\n");
-                out.close();
-            } catch (IOException e){
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
+            user(correct);
 
             Scanner userObj = new Scanner(System.in);
-            System.out.println(ANSI_YELLOW + "Do you want to play again?" + ANSI_RESET);
+            System.out.println(ANSI_YELLOW + "\nDo you want to play again?" + ANSI_RESET);
             System.out.println("a. Yes\nb.No");
             String userReady = userObj.nextLine();
 
@@ -147,5 +122,67 @@ public class Chestionar_01{
                 isReady=0;
             }
         }        
+    }
+
+    static void user(int correct){
+        String userName = null;
+        int userChoice = 0;
+
+        Scanner userchoiceObj = new Scanner(System.in);
+        System.out.println("1. Register new username.\n2. Show users and scores.");
+        userChoice = userchoiceObj.nextInt();
+
+        switch(userChoice){
+            case 1:
+            Scanner usernameObj = new Scanner(System.in);
+            System.out.println("Insert username:");
+            userName = usernameObj.nextLine();
+
+            try{ // check if file exists
+                File fileObj = new File ("Users.txt");
+                if(fileObj.createNewFile()){
+                    System.out.println("File created.");
+                }
+                else{
+                    System.out.println("File existent.");
+                }
+            }
+            catch(IOException e){
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+
+            try{ // write next line
+                FileWriter writer = new FileWriter("D:\\GitHub\\Quiz\\Users.txt", true);
+                writer.append(userName + " :: " + new java.util.Date() + " : " + correct + " points\n");
+                writer.close();
+            } 
+            catch (IOException e){
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+            break;
+
+            case 2:
+            try{
+                FileReader reader = new FileReader("D:\\GitHub\\Quiz\\Users.txt");
+                int data = reader.read();
+                while(data != -1){
+                    System.out.print((char)data);
+                    data = reader.read();
+                }
+                reader.close();
+            }
+            catch(FileNotFoundException e){
+                e.printStackTrace();
+            }
+            catch(IOException e){
+                e.printStackTrace();
+            }
+            break;
+        }
+
+
+        
     }
 }
